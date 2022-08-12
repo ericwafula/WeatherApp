@@ -28,7 +28,7 @@ class WeatherRepositoryImplTest: WeatherRepository {
     }
 
     override suspend fun getCurrentWeatherInfo(lat: Double, long: Double): Resource<WeatherInfo> {
-        return Resource(weatherInfo, null)
+        return Resource.Success(weatherInfo)
     }
 
     @Test
@@ -38,5 +38,14 @@ class WeatherRepositoryImplTest: WeatherRepository {
             resource = getCurrentWeatherInfo(-73.98529171943665, 40.75872069597532)
         }
         assertEquals("2022-08-12T03:00:00Z", resource?.data?.data?.timelines?.get(0)?.startTime)
+    }
+
+    @Test
+    fun `checks whether weatherInfo object is the same, returns true`() {
+        var resource: Resource<WeatherInfo>? = null
+        runTest {
+            resource = getCurrentWeatherInfo(-73.98529171943665, 40.75872069597532)
+        }
+        assertEquals(weatherInfo, resource?.data)
     }
 }
