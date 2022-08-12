@@ -6,16 +6,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import tech.ericwathome.weatherapp.data.local.location.DefaultLocationTracker
 import tech.ericwathome.weatherapp.data.local.location.LocationTracker
-import tech.ericwathome.weatherapp.data.remote.repository.WeatherRepository
-import tech.ericwathome.weatherapp.data.remote.repository.WeatherRepositoryImpl
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class RepositoryModule {
-
+abstract class LocationModule {
     @Binds
-    abstract fun bindRepository(
-        repositoryImpl: WeatherRepositoryImpl
-    ): WeatherRepository
-
+    abstract fun bindLocationTracker(defaultLocationTracker: DefaultLocationTracker): LocationTracker
 }
