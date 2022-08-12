@@ -1,5 +1,5 @@
 package tech.ericwathome.weatherapp.data.model
 
-data class TomorrowApiResponse(
+data class WeatherInfo(
     val `data`: Data
 )
