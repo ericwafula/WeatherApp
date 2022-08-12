@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import tech.ericwathome.weatherapp.data.remote.network.TomorrowApiService
 import tech.ericwathome.weatherapp.util.API_KEY
 import tech.ericwathome.weatherapp.util.BASE_URL
 import javax.inject.Singleton
@@ -45,4 +46,8 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    @Provides
+    @Singleton
+    fun provideTomorrowApiService(retrofit: Retrofit) = retrofit.create(TomorrowApiService::class.java)
 }
