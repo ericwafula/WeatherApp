@@ -13,5 +13,8 @@ class MainActivityViewModel @Inject constructor(private val repository: WeatherR
     private val _weatherInfo = MutableStateFlow<WeatherEvent>(WeatherEvent.Empty)
     private val weatherInfo = _weatherInfo.asStateFlow()
 
+    fun getCurrentWeatherInfo() {
+
+    }
 
 }
