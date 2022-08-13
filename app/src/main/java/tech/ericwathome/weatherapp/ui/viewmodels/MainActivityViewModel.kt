@@ -1,5 +1,8 @@
 package tech.ericwathome.weatherapp.ui.viewmodels
 
+import android.content.Context
+import android.location.Geocoder
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +14,7 @@ import tech.ericwathome.weatherapp.data.local.location.LocationTracker
 import tech.ericwathome.weatherapp.data.model.WeatherState
 import tech.ericwathome.weatherapp.data.remote.repository.WeatherRepository
 import tech.ericwathome.weatherapp.util.Resource
+import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,6 +24,7 @@ class MainActivityViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableStateFlow(WeatherState())
     val state = _state.asStateFlow()
+    private val _location = MutableStateFlow(Location(""))
 
     fun getCurrentWeatherInfo() {
         viewModelScope.launch {
@@ -28,6 +33,7 @@ class MainActivityViewModel @Inject constructor(
                 error = null
             )
             locationTracker.getCurrentLocation()?.let { location ->
+                _location.value = location
                 Log.d("TAG", "getCurrentWeatherInfo: $location")
                 when (val result = repository.getCurrentWeatherInfo(location.latitude, location.longitude)) {
                     is Resource.Success -> {
@@ -51,6 +57,16 @@ class MainActivityViewModel @Inject constructor(
                     error = "Couldn't receive location data. Make sure to grant location permissions and enable GPS."
                 )
             }
+        }
+    }
+
+    fun getCurrentAddress(context: Context): String {
+        return try {
+            val geocoder = Geocoder(context, Locale.getDefault())
+            val addresses = geocoder.getFromLocation(_location.value.latitude, _location.value.longitude, 1)
+            addresses[0].getAddressLine(0)
+        } catch (e: Exception) {
+            "unable to fetch location data"
         }
     }
 

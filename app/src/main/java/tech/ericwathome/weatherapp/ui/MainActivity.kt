@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
                     weatherState.weatherInfo?.let {
                         val currentTemp = it.data.timelines[0].intervals[0].values.temperature
                         binding.tvTemp.text = "$currentTemp"
+                        binding.tvLocation.text = viewModel.getCurrentAddress(this@MainActivity)
                     }
                 }
         }
