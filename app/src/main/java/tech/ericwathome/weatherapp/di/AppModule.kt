@@ -1,5 +1,8 @@
 package tech.ericwathome.weatherapp.di
 
+import android.app.Application
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,4 +53,10 @@ object AppModule {
     @Provides
     @Singleton
     fun provideTomorrowApiService(retrofit: Retrofit): TomorrowApiService = retrofit.create(TomorrowApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideFusedLocationProviderClient(application: Application): FusedLocationProviderClient {
+        return LocationServices.getFusedLocationProviderClient(application)
+    }
 }
