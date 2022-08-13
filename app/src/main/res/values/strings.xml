@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="_49_7">49.7°</string>
+    <string name="nairobi">Nairobi</string>
 </resources>

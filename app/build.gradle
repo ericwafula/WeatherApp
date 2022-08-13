@@ -24,6 +24,10 @@ android {
         testInstrumentationRunner "tech.ericwathome.weatherapp.HiltTestRunner"
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
