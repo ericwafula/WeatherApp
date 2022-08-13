@@ -13,6 +13,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import tech.ericwathome.weatherapp.R
+import tech.ericwathome.weatherapp.databinding.ActivityMainBinding
 import tech.ericwathome.weatherapp.ui.viewmodels.MainActivityViewModel
 
 @AndroidEntryPoint
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private val TAG = this::class.simpleName
     }
+    private lateinit var binding: ActivityMainBinding
     private lateinit var permissionLauncher: ActivityResultLauncher<Array<String>>
 
     private val viewModel by lazy {
@@ -28,7 +30,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         registerPermissions()
         getLocationData()
@@ -49,8 +52,11 @@ class MainActivity : AppCompatActivity() {
     private fun getLocationData() {
         lifecycleScope.launchWhenCreated {
             viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect {
-                    Log.d(TAG, "getLocationData: $it")
+                .collect { weatherState ->
+                    weatherState.weatherInfo?.let {
+                        val currentTemp = it.data.timelines[0].intervals[0].values.temperature
+                        binding.tvTemp.text = "$currentTemp"
+                    }
                 }
         }
     }
