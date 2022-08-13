@@ -13,7 +13,7 @@ class WeatherRepositoryImpl @Inject constructor(
         return try {
             val map = buildMap {
                 put("location", "$lat,$long")
-                put("fields", "fields")
+                put("fields", "temperature")
                 put("timesteps", "1d")
                 put("units", "metric")
             }

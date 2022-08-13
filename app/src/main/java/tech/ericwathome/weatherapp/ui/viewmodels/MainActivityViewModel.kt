@@ -1,5 +1,6 @@
 package tech.ericwathome.weatherapp.ui.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +28,7 @@ class MainActivityViewModel @Inject constructor(
                 error = null
             )
             locationTracker.getCurrentLocation()?.let { location ->
+                Log.d("TAG", "getCurrentWeatherInfo: $location")
                 when (val result = repository.getCurrentWeatherInfo(location.latitude, location.longitude)) {
                     is Resource.Success -> {
                         _state.value = WeatherState(
@@ -46,7 +48,7 @@ class MainActivityViewModel @Inject constructor(
             } ?: kotlin.run {
                 _state.value = WeatherState(
                     isLoading = false,
-                    error = "Couldn't receive location. Make sure to grant location permissions and enable GPS."
+                    error = "Couldn't receive location data. Make sure to grant location permissions and enable GPS."
                 )
             }
         }
