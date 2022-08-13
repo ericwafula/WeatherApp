@@ -64,7 +64,7 @@ class MainActivityViewModel @Inject constructor(
         return try {
             val geocoder = Geocoder(context, Locale.getDefault())
             val addresses = geocoder.getFromLocation(_location.value.latitude, _location.value.longitude, 1)
-            addresses[0].getAddressLine(0)
+            addresses[0].adminArea
         } catch (e: Exception) {
             "unable to fetch location data"
         }

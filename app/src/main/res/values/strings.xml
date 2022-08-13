@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="_49_7">49.7°</string>
+    <string name="_49_7">0°</string>
     <string name="nairobi">Nairobi</string>
+    <string name="no_address_found">no address found</string>
+    <string name="current_temp">%1$s°</string>
 </resources>

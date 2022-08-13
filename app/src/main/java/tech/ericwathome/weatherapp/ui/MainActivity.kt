@@ -54,8 +54,8 @@ class MainActivity : AppCompatActivity() {
             viewModel.state.flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { weatherState ->
                     weatherState.weatherInfo?.let {
-                        val currentTemp = it.data.timelines[0].intervals[0].values.temperature
-                        binding.tvTemp.text = "$currentTemp"
+                        val currentTemp = "${it.data.timelines[0].intervals[0].values.temperature}"
+                        binding.tvTemp.text = getString(R.string.current_temp, currentTemp)
                         binding.tvLocation.text = viewModel.getCurrentAddress(this@MainActivity)
                     }
                 }

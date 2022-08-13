@@ -55,11 +55,13 @@
                 android:textSize="16sp"
                 android:layout_marginTop="24dp"
                 android:textColor="@color/white"
-                android:text="@string/nairobi"
+                android:text="@string/no_address_found"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
