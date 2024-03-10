@@ -38,6 +38,7 @@ fun Project.configureKotlinAndroid(
 
         dependencies {
             "implementation"(libs.findLibrary("core-ktx").get())
+            "implementation"(libs.findLibrary("kotlin-coroutines-android").get())
         }
     }
 }

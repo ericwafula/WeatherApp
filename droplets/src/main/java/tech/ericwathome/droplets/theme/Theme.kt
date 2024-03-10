@@ -1,4 +1,4 @@
-package tech.ericwathome.weatherapp.ui.theme
+package tech.ericwathome.droplets.theme
 
 import android.app.Activity
 import android.os.Build

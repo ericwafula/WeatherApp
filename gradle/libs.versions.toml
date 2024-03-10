@@ -22,6 +22,7 @@ hilt-android = "2.49"
 ksp = "1.9.22-1.0.17"
 truth = "1.1.4"
 turbine = "1.1.0"
+kotlin-coroutines-android = "1.8.0"
 
 [libraries]
 # config
@@ -55,6 +56,8 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt-android" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }
+kotlin-coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin-coroutines-android" }
+kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlin-coroutines-android" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

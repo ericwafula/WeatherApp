@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dagger.hilt.android.AndroidEntryPoint
-import tech.ericwathome.weatherapp.ui.theme.WeatherAppTheme
+import tech.ericwathome.droplets.theme.WeatherAppTheme
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
