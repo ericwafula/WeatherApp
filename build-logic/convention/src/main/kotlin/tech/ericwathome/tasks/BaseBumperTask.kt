@@ -31,8 +31,10 @@ abstract class BaseBumperTask : DefaultTask() {
         properties.store(versionsFile.outputStream(), null)
 
         project.exec {
-            commandLine("git", "add", versionsFile.absolutePath)
-            commandLine("git", "commit", "-m", "Bump version to $versionName ($versionCode)")
+            commandLine("sh", "-c", "git add ${versionsFile.absolutePath} && git commit -m 'Bump version to $versionName ($versionCode)'")
+            isIgnoreExitValue = true
+            standardOutput = System.out
+            errorOutput = System.err
         }
     }
 }
