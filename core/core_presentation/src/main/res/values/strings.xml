@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_internet">No internet available. Check your network connection and try again</string>
+    <string name="dismiss">dismiss</string>
+</resources>
