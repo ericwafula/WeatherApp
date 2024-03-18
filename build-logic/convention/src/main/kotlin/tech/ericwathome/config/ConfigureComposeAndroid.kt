@@ -35,6 +35,7 @@ fun Project.configureComposeAndroid(
             "implementation"(libs.findLibrary("ui-graphics").get())
             "implementation"(libs.findLibrary("ui-tooling-preview").get())
             "implementation"(libs.findLibrary("material3").get())
+            "implementation"(libs.findLibrary("hilt-navigation-compose").get())
             "androidTestImplementation"(libs.findLibrary("espresso-core").get())
             "androidTestImplementation"(composeBom)
             "androidTestImplementation"(libs.findLibrary("ui-test-junit4").get())
