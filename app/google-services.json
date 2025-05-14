@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860667305038",
+    "project_id": "weatherapp-59a60",
+    "storage_bucket": "weatherapp-59a60.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860667305038:android:99973d133c7d3807a5771f",
+        "android_client_info": {
+          "package_name": "tech.ericwathome.weatherapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlDkoMrkT6fo7c27nPrjU5Ez1VuLyKdB4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
