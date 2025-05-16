@@ -1,4 +1,4 @@
-package tech.ericwathome.weatherapp.presentation.designsystem
+package tech.ericwathome.designsystem
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

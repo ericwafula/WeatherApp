@@ -1,4 +1,4 @@
-package tech.ericwathome.weatherapp.presentation.designsystem
+package tech.ericwathome.designsystem
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

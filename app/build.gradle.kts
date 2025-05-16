@@ -67,4 +67,8 @@ dependencies {
 
     // leak canary
     debugImplementation(libs.leakcanary.android)
+
+    // modules
+    implementation(projects.core.designsystem)
+    implementation(projects.core.ui)
 }
