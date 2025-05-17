@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="continue_text">Continue</string>
+    <string name="hint_enter_city_name">Enter city name...</string>
 </resources>
