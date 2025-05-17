@@ -22,19 +22,21 @@ fun WeatherAppRadioButton(
     isSelected: Boolean,
 ) {
     Box(
-        modifier = Modifier
-            .size(24.dp)
-            .clip(CircleShape)
-            .clickable(onClick = onClick)
-            .border(width = 1.dp, color = MaterialTheme.colorScheme.secondary, shape = CircleShape)
-            .padding(2.dp)
+        modifier =
+            Modifier
+                .size(24.dp)
+                .clip(CircleShape)
+                .clickable(onClick = onClick)
+                .border(width = 1.dp, color = MaterialTheme.colorScheme.secondary, shape = CircleShape)
+                .padding(2.dp),
     ) {
         if (isSelected) {
             Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .background(MaterialTheme.colorScheme.secondary)
+                modifier =
+                    Modifier
+                        .fillMaxSize()
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.secondary),
             )
         }
     }
@@ -46,7 +48,7 @@ private fun WeatherAppRadioButtonPreview() {
     WeatherAppTheme {
         WeatherAppRadioButton(
             isSelected = true,
-            onClick = { }
+            onClick = { },
         )
     }
 }

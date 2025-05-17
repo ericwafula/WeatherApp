@@ -29,7 +29,7 @@ class WeatherApp : Application() {
                     override fun createStackElementTag(element: StackTraceElement): String {
                         return super.createStackElementTag(element) + ":" + element.lineNumber
                     }
-                }
+                },
             )
         } else {
             Timber.plant(CrashlyticsTree())
@@ -47,7 +47,7 @@ class WeatherApp : Application() {
             workManagerFactory()
             modules(
                 applicationModule,
-                dataModule
+                dataModule,
             )
         }
     }

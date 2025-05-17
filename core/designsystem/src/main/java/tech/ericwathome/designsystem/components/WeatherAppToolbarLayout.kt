@@ -1,8 +1,6 @@
 package tech.ericwathome.designsystem.components
 
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ColumnScope
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -27,7 +25,7 @@ import tech.ericwathome.designsystem.assets.AppIcons
 fun WeatherAppToolbarLayout(
     title: String,
     actions: @Composable RowScope.() -> Unit = { },
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -35,23 +33,25 @@ fun WeatherAppToolbarLayout(
                 title = {
                     Text(
                         text = title,
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+                        style =
+                            MaterialTheme.typography.bodyLarge.copy(
+                                fontSize = 24.sp,
+                                fontWeight = FontWeight.Bold,
+                            ),
                     )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background
-                ),
-                actions = actions
+                colors =
+                    TopAppBarDefaults.topAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.background,
+                    ),
+                actions = actions,
             )
-        }
+        },
     ) { paddingValues ->
         Column(
             Modifier
                 .padding(paddingValues)
-                .fillMaxSize()
+                .fillMaxSize(),
         ) { content() }
     }
 }
@@ -64,29 +64,31 @@ private fun WeatherAppToolbarLayoutPreview() {
             title = "Paris, France",
             actions = {
                 IconButton(
-                    onClick = { }
+                    onClick = { },
                 ) {
                     Icon(
                         imageVector = AppIcons.SearchOutlined,
                         contentDescription = null,
-                        tint = MaterialTheme.colorScheme.secondary
+                        tint = MaterialTheme.colorScheme.secondary,
                     )
                 }
-            }
+            },
         ) {
             Text(
                 text = "Test",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                style =
+                    MaterialTheme.typography.bodyLarge.copy(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
             )
             Text(
                 text = "Test",
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.Bold
-                )
+                style =
+                    MaterialTheme.typography.bodyLarge.copy(
+                        fontSize = 24.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
             )
         }
     }

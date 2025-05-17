@@ -20,20 +20,21 @@ import tech.ericwathome.designsystem.WeatherAppTheme
 fun WeatherAppFilledButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: String
+    text: String,
 ) {
     Button(
         modifier = modifier.heightIn(min = 56.dp),
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary
-        )
+        colors =
+            ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
+            ),
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold)
+            style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
         )
     }
 }
@@ -45,7 +46,7 @@ private fun WeatherAppFilledButtonPreview() {
         WeatherAppFilledButton(
             onClick = { },
             modifier = Modifier.fillMaxWidth(),
-            text = stringResource(R.string.continue_text)
+            text = stringResource(R.string.continue_text),
         )
     }
 }
