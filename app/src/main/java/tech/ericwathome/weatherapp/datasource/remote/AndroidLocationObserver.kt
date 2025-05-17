@@ -25,6 +25,7 @@ class AndroidLocationObserver(
     private val context: Context,
 ) : LocationObserver {
     private val client = LocationServices.getFusedLocationProviderClient(context)
+
     override fun getLiveLocation(interval: Long): Flow<Location> {
         return callbackFlow {
             val locationManager = context.getSystemService<LocationManager>()!!

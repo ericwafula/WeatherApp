@@ -7,6 +7,7 @@ import org.gradle.kotlin.dsl.kotlin
 import tech.ericwathome.convention.ExtensionType
 import tech.ericwathome.convention.configureBuildTypes
 import tech.ericwathome.convention.configureKotlinAndroid
+import tech.ericwathome.tasks.configureLinting
 
 class AndroidLibraryConventionPlugin: Plugin<Project> {
 
@@ -16,6 +17,8 @@ class AndroidLibraryConventionPlugin: Plugin<Project> {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
             }
+
+            tasks.run { configureLinting(this) }
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)

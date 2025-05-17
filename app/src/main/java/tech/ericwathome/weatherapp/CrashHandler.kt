@@ -14,7 +14,10 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
     private var softwareInfo: String? = null
     private var dateInfo: String? = null
 
-    override fun uncaughtException(t: Thread, e: Throwable) {
+    override fun uncaughtException(
+        t: Thread,
+        e: Throwable,
+    ) {
         val stackTrace = StringWriter()
         e.printStackTrace(PrintWriter(stackTrace))
 
@@ -44,16 +47,15 @@ class CrashHandler : Thread.UncaughtExceptionHandler {
 
         val message =
             "Error:\n" +
-                    "$errorMessage\n\n" +
-                    "Software:\n" +
-                    "$softwareInfo\n\n" +
-                    "Date:\n" +
-                    "$dateInfo"
+                "$errorMessage\n\n" +
+                "Software:\n" +
+                "$softwareInfo\n\n" +
+                "Date:\n" +
+                "$dateInfo"
 
         Timber.e(message)
 
         Process.killProcess(Process.myPid())
         exitProcess(2)
     }
-
 }

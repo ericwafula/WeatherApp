@@ -10,8 +10,9 @@ import tech.ericwathome.weatherapp.data.util.DefaultDispatcherProvider
 import tech.ericwathome.weatherapp.datasource.remote.AndroidLocationObserver
 import tech.ericwathome.weatherapp.domain.util.DispatcherProvider
 
-val dataModule = module {
-    single<HttpClient> { HttpClientFactory.create() }
-    singleOf(::DefaultDispatcherProvider).bind<DispatcherProvider>()
-    singleOf(::AndroidLocationObserver).bind<LocationObserver>()
-}
+val dataModule =
+    module {
+        single<HttpClient> { HttpClientFactory.create() }
+        singleOf(::DefaultDispatcherProvider).bind<DispatcherProvider>()
+        singleOf(::AndroidLocationObserver).bind<LocationObserver>()
+    }

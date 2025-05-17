@@ -1,6 +1,6 @@
 package tech.ericwathome.core.ui
 
- import tech.ericwathome.weatherapp.domain.util.DataError
+import tech.ericwathome.weatherapp.domain.util.DataError
 
 fun DataError.asUiText(): UiText {
     return when (this) {

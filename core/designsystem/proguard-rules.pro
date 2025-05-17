@@ -27,3 +27,5 @@
 -keepclassmembers class * {
     @androidx.compose.runtime.Composable <methods>;
 }
+
+-keep class tech.ericwathome.designsystem.assets.AppIcons { *; }

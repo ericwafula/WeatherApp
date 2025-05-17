@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="continue_text">Continue</string>
+    <string name="hint_enter_city_name">Enter city name...</string>
+    <string name="nairobi_kenya">Nairobi, Kenya</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="use_current_location">Use Current Location</string>
+    <string name="would_you_like_to_use_your_current_location_for_weather_updates">Would you like to use your current location for weather updates?</string>
+</resources>
