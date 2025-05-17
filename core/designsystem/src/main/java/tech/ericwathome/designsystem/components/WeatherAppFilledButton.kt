@@ -17,7 +17,7 @@ import tech.ericwathome.designsystem.R
 import tech.ericwathome.designsystem.WeatherAppTheme
 
 @Composable
-fun WeatherAppButton(
+fun WeatherAppFilledButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String
@@ -40,9 +40,9 @@ fun WeatherAppButton(
 
 @Preview
 @Composable
-private fun WeatherAppButtonPreview() {
+private fun WeatherAppFilledButtonPreview() {
     WeatherAppTheme {
-        WeatherAppButton(
+        WeatherAppFilledButton(
             onClick = { },
             modifier = Modifier.fillMaxWidth(),
             text = stringResource(R.string.continue_text)
