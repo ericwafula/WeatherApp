@@ -19,3 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keeppackagenames
+-dontobfuscate
+
+-keep class tech.ericwathome.designsystem.ThemeKt { *; }
+-keepclassmembers class * {
+    @androidx.compose.runtime.Composable <methods>;
+}

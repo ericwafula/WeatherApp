@@ -50,6 +50,7 @@ private fun BuildType.configureDebugBuild(
     openWeatherApiKey: String,
     cityApi: String
 ) {
+    isMinifyEnabled = false
     buildConfigField("String", "OPEN_WEATHER_BASE_URL", "\"$openWeatherBaseUrl\"")
     buildConfigField("String", "OPEN_WEATHER_API_KEY", "\"$openWeatherApiKey\"")
     buildConfigField("String", "CITY_API", "\"$cityApi\"")
