@@ -22,3 +22,7 @@
 
 -keeppackagenames
 -dontobfuscate
+
+-keepclassmembers class * {
+    @androidx.compose.runtime.Composable <methods>;
+}
