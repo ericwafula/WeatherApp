@@ -38,6 +38,10 @@ gradlePlugin {
             id = "weatherapp.android.room"
             implementationClass = "AndroidRoomConventionPlugin"
         }
+        register("jvmLibrary") {
+            id = "weatherapp.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
         register("jvmKtor") {
             id = "weatherapp.jvm.ktor"
             implementationClass = "JvmKtorConventionPlugin"

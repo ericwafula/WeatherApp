@@ -1,6 +1,6 @@
 [versions]
 agp = "8.9.2"
-androidTools = "31.9.1"
+androidTools = "31.10.0"
 playFeatureDelivery = "2.1.0"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.7.0"
@@ -146,6 +146,7 @@ weatherapp-android-library-compose = { id = "weatherapp.android.library.compose"
 weatherapp-android-feature-ui = { id = "weatherapp.android.feature.ui", version = "unspecified" }
 weatherapp-android-room = { id = "weatherapp.android.room", version = "unspecified" }
 weatherapp-jvm-ktor = { id = "weatherapp.jvm.ktor", version = "unspecified" }
+weatherapp-jvm-library = { id = "weatherapp.jvm.library", version = "unspecified" }
 
 [bundles]
 compose = [

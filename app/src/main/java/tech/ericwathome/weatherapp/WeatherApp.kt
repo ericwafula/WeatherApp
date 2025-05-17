@@ -1,13 +1,19 @@
 package tech.ericwathome.weatherapp
 
 import android.app.Application
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
+import tech.ericwathome.weatherapp.di.applicationModule
+import tech.ericwathome.weatherapp.di.dataModule
 import timber.log.Timber
 
 class WeatherApp : Application() {
+    val applicationScope = CoroutineScope(SupervisorJob())
+
     override fun onCreate() {
         super.onCreate()
 
@@ -40,7 +46,8 @@ class WeatherApp : Application() {
             androidContext(this@WeatherApp)
             workManagerFactory()
             modules(
-                
+                applicationModule,
+                dataModule
             )
         }
     }

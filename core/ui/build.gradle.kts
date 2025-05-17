@@ -4,16 +4,6 @@ plugins {
 
 android {
     namespace = "tech.ericwathome.core.ui"
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
 }
 
 dependencies {
@@ -24,4 +14,5 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.timber)
     implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
 }

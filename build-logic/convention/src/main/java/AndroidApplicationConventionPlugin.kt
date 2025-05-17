@@ -2,6 +2,8 @@ import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import tech.ericwathome.convention.ExtensionType
+import tech.ericwathome.convention.configureBuildTypes
 import tech.ericwathome.convention.configureKotlinAndroid
 import tech.ericwathome.convention.libs
 
@@ -26,11 +28,9 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
                 }
 
-                buildFeatures {
-                    buildConfig = true
-                }
-
                 configureKotlinAndroid(this)
+
+                configureBuildTypes(target, ExtensionType.APPLICATION, this)
             }
         }
     }

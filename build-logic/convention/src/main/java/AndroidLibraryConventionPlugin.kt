@@ -4,6 +4,8 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.kotlin
+import tech.ericwathome.convention.ExtensionType
+import tech.ericwathome.convention.configureBuildTypes
 import tech.ericwathome.convention.configureKotlinAndroid
 
 class AndroidLibraryConventionPlugin: Plugin<Project> {
@@ -17,6 +19,7 @@ class AndroidLibraryConventionPlugin: Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
+                configureBuildTypes(target, ExtensionType.LIBRARY, this)
 
                 defaultConfig {
                     testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

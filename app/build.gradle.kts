@@ -7,16 +7,6 @@ plugins {
 
 android {
     namespace = "tech.ericwathome.weatherapp"
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
 }
 
 dependencies {
@@ -71,4 +61,5 @@ dependencies {
     // modules
     implementation(projects.core.designsystem)
     implementation(projects.core.ui)
+    implementation(projects.core.domain)
 }
