@@ -30,3 +30,4 @@
 
 -keep class tech.ericwathome.designsystem.assets.AppIcons { *; }
 -keep class tech.ericwathome.designsystem.assets.AppFonts { *; }
+}
