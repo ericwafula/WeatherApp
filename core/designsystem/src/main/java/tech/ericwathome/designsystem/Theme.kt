@@ -3,6 +3,10 @@ package tech.ericwathome.designsystem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import tech.ericwathome.designsystem.utils.LocalTextUtils
+import tech.ericwathome.designsystem.utils.TextUtils
+import tech.ericwathome.designsystem.utils.previewSupported
 
 private val DarkColorScheme = darkColorScheme(
     primary = White,
@@ -19,9 +23,13 @@ private val DarkColorScheme = darkColorScheme(
 fun WeatherAppTheme(
     content: @Composable () -> Unit
 ) {
-    MaterialTheme(
-        colorScheme = DarkColorScheme,
-        typography = Typography,
-        content = content
-    )
+    CompositionLocalProvider(
+        LocalTextUtils provides TextUtils()
+    ) {
+        MaterialTheme(
+            colorScheme = DarkColorScheme,
+            typography = Typography.previewSupported,
+            content = content
+        )
+    }
 }
