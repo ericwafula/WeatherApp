@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.weatherapp.android.application.compose)
     alias(libs.plugins.weatherapp.jvm.ktor)
+    alias(libs.plugins.weatherapp.android.room)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.google.services)
 }
