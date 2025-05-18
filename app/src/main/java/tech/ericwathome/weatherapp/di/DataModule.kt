@@ -6,12 +6,14 @@ import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import tech.ericwathome.core.domain.ConnectionObserver
 import tech.ericwathome.core.domain.LocationObserver
 import tech.ericwathome.weatherapp.data.network.HttpClientFactory
 import tech.ericwathome.weatherapp.data.util.DefaultDispatcherProvider
 import tech.ericwathome.weatherapp.datasource.local.ForecastDao
 import tech.ericwathome.weatherapp.datasource.local.WeatherAppDatabase
 import tech.ericwathome.weatherapp.datasource.remote.AndroidLocationObserver
+import tech.ericwathome.weatherapp.datasource.remote.DefaultConnectionObserver
 import tech.ericwathome.weatherapp.domain.util.DispatcherProvider
 
 val dataModule =
@@ -19,6 +21,7 @@ val dataModule =
         single<HttpClient> { HttpClientFactory.create() }
         singleOf(::DefaultDispatcherProvider).bind<DispatcherProvider>()
         singleOf(::AndroidLocationObserver).bind<LocationObserver>()
+        singleOf(::DefaultConnectionObserver).bind<ConnectionObserver>()
         single<WeatherAppDatabase> {
             Room.databaseBuilder(
                 context = androidApplication(),
