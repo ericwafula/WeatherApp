@@ -8,6 +8,6 @@ fun CityDataDto.toDomain(): CityData {
         country = country,
         name = name,
         lat = lat,
-        lon = lon
+        lon = lon,
     )
 }

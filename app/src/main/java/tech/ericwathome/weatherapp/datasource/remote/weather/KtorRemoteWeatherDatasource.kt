@@ -33,7 +33,7 @@ class KtorRemoteWeatherDatasource(
 
     override suspend fun fetchCities(): Result<List<CityData>, DataError.Network> {
         return httpClient.get<List<CityDataDto>>(
-            route = BuildConfig.CITY_API
+            route = BuildConfig.CITY_API,
         ).map { list -> list.map { it.toDomain() } }
     }
 }

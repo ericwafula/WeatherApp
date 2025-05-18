@@ -9,5 +9,5 @@ data class CityDataDto(
     val name: String,
     val lat: Double,
     @SerialName("lng")
-    val lon: Double
+    val lon: Double,
 )

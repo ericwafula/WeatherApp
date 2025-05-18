@@ -12,5 +12,5 @@ data class CityDataEntity(
     val country: String,
     val name: String,
     val lat: Double,
-    val lon: Double
+    val lon: Double,
 )
