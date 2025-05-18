@@ -9,6 +9,7 @@ import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import tech.ericwathome.weatherapp.di.applicationModule
 import tech.ericwathome.weatherapp.di.dataModule
+import tech.ericwathome.weatherapp.di.presentationModule
 import timber.log.Timber
 
 class WeatherApp : Application() {
@@ -48,6 +49,7 @@ class WeatherApp : Application() {
             modules(
                 applicationModule,
                 dataModule,
+                presentationModule,
             )
         }
     }

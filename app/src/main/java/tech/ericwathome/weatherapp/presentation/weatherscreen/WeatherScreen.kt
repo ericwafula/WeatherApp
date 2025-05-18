@@ -99,6 +99,21 @@ fun WeatherScreenContent(
             }
         },
     ) {
+        if (!state.loading && state.forecast == null) {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    modifier = Modifier.padding(start = 24.dp),
+                    text = "No weather data found!",
+                    style =
+                        MaterialTheme.typography.bodyLarge.copy(
+                            color = MaterialTheme.colorScheme.onBackground,
+                        ),
+                )
+            }
+        }
         Column(
             modifier =
                 Modifier
