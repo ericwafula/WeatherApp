@@ -15,6 +15,7 @@ import tech.ericwathome.weatherapp.data.DefaultWeatherRepository
 import tech.ericwathome.weatherapp.data.network.HttpClientFactory
 import tech.ericwathome.weatherapp.data.util.DefaultDispatcherProvider
 import tech.ericwathome.weatherapp.datasource.local.WeatherAppDatabase
+import tech.ericwathome.weatherapp.datasource.local.source.weather.CityDataDao
 import tech.ericwathome.weatherapp.datasource.local.source.weather.ForecastDao
 import tech.ericwathome.weatherapp.datasource.local.source.weather.RoomLocalWeatherDatasource
 import tech.ericwathome.weatherapp.datasource.remote.AndroidLocationObserver
@@ -36,6 +37,7 @@ val dataModule =
             ).build()
         }
         single<ForecastDao> { get<WeatherAppDatabase>().forecastDao() }
+        single<CityDataDao> { get<WeatherAppDatabase>().cityDataDao() }
         singleOf(::RoomLocalWeatherDatasource).bind<LocalWeatherDataSource>()
         singleOf(::KtorRemoteWeatherDatasource).bind<RemoteWeatherDatasource>()
         singleOf(::DefaultWeatherRepository).bind<WeatherRepository>()
