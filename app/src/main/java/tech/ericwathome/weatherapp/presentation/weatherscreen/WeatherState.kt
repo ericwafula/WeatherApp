@@ -6,5 +6,6 @@ import tech.ericwathome.core.domain.model.Location
 data class WeatherState(
     val location: Location? = null,
     val loading: Boolean = false,
-    val forecast: Forecast,
+    val forecast: Forecast? = null,
+    val showUseCurrentLocationDialog: Boolean = false,
 )

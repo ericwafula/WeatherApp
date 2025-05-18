@@ -25,4 +25,8 @@ object AppIcons {
     val EyeOutlined: ImageVector
         @Composable
         get() = ImageVector.vectorResource(R.drawable.ic_eye)
+
+    val FrownOutlined: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(R.drawable.ic_eye)
 }

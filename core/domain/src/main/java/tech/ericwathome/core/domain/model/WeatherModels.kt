@@ -3,6 +3,7 @@ package tech.ericwathome.core.domain.model
 data class Forecast(
     val list: List<ForecastItem>,
     val dailySummary: String,
+    val city: City,
 )
 
 data class ForecastItem(
@@ -31,4 +32,10 @@ data class Weather(
 
 data class Wind(
     val speed: Double,
+)
+
+data class City(
+    val id: Long,
+    val name: String,
+    val country: String,
 )

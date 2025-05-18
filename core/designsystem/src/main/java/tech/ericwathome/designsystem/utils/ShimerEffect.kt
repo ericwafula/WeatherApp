@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.IntSize
 
 @Composable
 fun Modifier.shimmerEffect(): Modifier {
-    val shimmerColor = MaterialTheme.colorScheme.primary.copy(0.1f)
+    val shimmerColor = MaterialTheme.colorScheme.secondary.copy(0.1f)
 
     var size by remember {
         mutableStateOf(IntSize.Zero)

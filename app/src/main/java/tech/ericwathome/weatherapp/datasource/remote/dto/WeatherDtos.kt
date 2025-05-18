@@ -4,6 +4,7 @@ import kotlinx.serialization.SerialName
 
 data class ForecastDto(
     val list: List<ForecastItemDto>,
+    val city: CityDto,
 )
 
 data class ForecastItemDto(
@@ -36,4 +37,10 @@ data class WeatherDto(
 
 data class WindDto(
     val speed: Double,
+)
+
+data class CityDto(
+    val id: Long,
+    val name: String,
+    val country: String,
 )

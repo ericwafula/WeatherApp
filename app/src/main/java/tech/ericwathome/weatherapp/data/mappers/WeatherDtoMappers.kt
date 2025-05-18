@@ -1,10 +1,12 @@
 package tech.ericwathome.weatherapp.data.mappers
 
+import tech.ericwathome.core.domain.model.City
 import tech.ericwathome.core.domain.model.Forecast
 import tech.ericwathome.core.domain.model.ForecastItem
 import tech.ericwathome.core.domain.model.Main
 import tech.ericwathome.core.domain.model.Weather
 import tech.ericwathome.core.domain.model.Wind
+import tech.ericwathome.weatherapp.datasource.remote.dto.CityDto
 import tech.ericwathome.weatherapp.datasource.remote.dto.ForecastDto
 import tech.ericwathome.weatherapp.datasource.remote.dto.ForecastItemDto
 import tech.ericwathome.weatherapp.datasource.remote.dto.MainDto
@@ -18,9 +20,10 @@ fun ForecastDto.toDomain(): Forecast {
     return Forecast(
         list = list.map { it.toDomain() },
         dailySummary =
-            "Now it feels like ${list.toFeelLikeTempCelsius()}º, actually ${list.toMinTempCelsius()}º." +
+            "Now it feels like ${list.toFeelLikeTempCelsius()}, actually ${list.toMinTempCelsius()}." +
                 "${list.getOrNull(0)?.weather?.description ?: ""} today, " +
-                "temperatures ranging from ${list.toMinTempCelsius()}º to ${list.toMaxTempCelsius()}º.",
+                "temperatures ranging from ${list.toMinTempCelsius()} to ${list.toMaxTempCelsius()}.",
+        city = city.toDomain(),
     )
 }
 
@@ -50,10 +53,18 @@ fun WeatherDto.toDomain(): Weather {
         id = id,
         main = main,
         description = description,
-        icon = icon,
+        icon = "https://openweathermap.org/img/wn/$icon@2x.png",
     )
 }
 
 fun WindDto.toDomain(): Wind {
     return Wind(speed = speed)
+}
+
+fun CityDto.toDomain(): City {
+    return City(
+        id = id,
+        name = name,
+        country = country,
+    )
 }

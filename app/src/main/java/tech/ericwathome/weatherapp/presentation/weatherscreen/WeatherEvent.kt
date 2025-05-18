@@ -1,0 +1,3 @@
+package tech.ericwathome.weatherapp.presentation.weatherscreen
+
+sealed interface WeatherEvent
