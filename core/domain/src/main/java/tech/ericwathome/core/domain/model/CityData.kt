@@ -5,4 +5,5 @@ data class CityData(
     val name: String,
     val lat: Double,
     val lon: Double,
+    val isSelected: Boolean = false,
 )

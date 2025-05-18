@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
@@ -44,6 +45,7 @@ fun WeatherAppTextField(
     hint: String,
     leadingIcon: ImageVector? = null,
     keyboardOptions: KeyboardOptions = KeyboardOptions(),
+    keyboardActions: KeyboardActions = KeyboardActions(),
 ) {
     var isFocused by remember { mutableStateOf(false) }
     val outlineColor =
@@ -68,6 +70,7 @@ fun WeatherAppTextField(
         value = value,
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
         textStyle = LocalTextStyle.current.copy(fontSize = 14.sp),
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.secondary),

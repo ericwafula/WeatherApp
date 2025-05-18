@@ -21,15 +21,18 @@ fun WeatherAppFilledButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
+    isEnabled: Boolean = true,
 ) {
     Button(
         modifier = modifier.heightIn(min = 56.dp),
         onClick = onClick,
         shape = RoundedCornerShape(12.dp),
+        enabled = isEnabled,
         colors =
             ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
+                disabledContainerColor = MaterialTheme.colorScheme.surface,
             ),
     ) {
         Text(

@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.weatherapp.android.room)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.google.services)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {

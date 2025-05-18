@@ -65,6 +65,7 @@ import tech.ericwathome.designsystem.components.WeatherAppToolbarLayout
 import tech.ericwathome.designsystem.utils.ImageUtils
 import tech.ericwathome.designsystem.utils.LocalTextUtils
 import tech.ericwathome.designsystem.utils.shimmerEffect
+import tech.ericwathome.weatherapp.presentation.searchlocation.CityDataState
 import tech.ericwathome.weatherapp.presentation.util.hasLocationPermissions
 import tech.ericwathome.weatherapp.presentation.util.shouldShowLocationPermissionRationale
 import java.time.LocalDateTime
@@ -73,6 +74,7 @@ import kotlin.math.ceil
 @Composable
 fun WeatherScreen(
     onNavigateToSearchLocation: () -> Unit,
+    cityDataState: CityDataState?,
     viewModel: WeatherViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -87,6 +89,12 @@ fun WeatherScreen(
                     Toast.LENGTH_SHORT,
                 ).show()
             }
+        }
+    }
+
+    LaunchedEffect(true) {
+        cityDataState?.let {
+            viewModel.initCityData(cityDataState)
         }
     }
 

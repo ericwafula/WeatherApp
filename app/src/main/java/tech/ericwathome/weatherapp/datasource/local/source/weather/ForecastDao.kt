@@ -15,5 +15,5 @@ interface ForecastDao {
     suspend fun getForecast(): ForecastEntity?
 
     @Query("SELECT * FROM ForecastEntity WHERE id = 1")
-    fun observeForecast(): Flow<ForecastEntity>
+    fun observeForecast(): Flow<ForecastEntity?>
 }

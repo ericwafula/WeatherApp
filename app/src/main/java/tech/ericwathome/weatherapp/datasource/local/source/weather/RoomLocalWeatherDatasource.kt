@@ -15,10 +15,10 @@ class RoomLocalWeatherDatasource(
     private val forecastDao: ForecastDao,
     private val cityDataDao: CityDataDao,
 ) : LocalWeatherDataSource {
-    override val weatherForecastObservable: Flow<Forecast>
-        get() = forecastDao.observeForecast().map { it.toDomain() }
-    override val cityDataObservable: Flow<List<CityData>>
-        get() = cityDataDao.observeCityData().map { list -> list.map { it.toDomain() } }
+    override val weatherForecastObservable: Flow<Forecast?>
+        get() = forecastDao.observeForecast().map { it?.toDomain() }
+    override val cityDataObservable: Flow<List<CityData>?>
+        get() = cityDataDao.observeCityData().map { list -> list?.map { it.toDomain() } }
 
     override suspend fun upsertWeatherForecast(forecast: Forecast): EmptyResult<DataError.Local> {
         return safeTransaction {
@@ -32,7 +32,7 @@ class RoomLocalWeatherDatasource(
 
     override suspend fun upsertCityData(data: List<CityData>): EmptyResult<DataError.Local> {
         return safeTransaction {
-            cityDataDao.upsertCityData(data)
+            cityDataDao.upsertCityData(data.map { it.toEntity() })
         }
     }
 }

@@ -2,4 +2,6 @@
     <string name="app_name">WeatherApp</string>
     <string name="you_are_seeing_the_latest_forecast">You’re now seeing the latest forecast.</string>
     <string name="unable_to_get_latest_forecast">Unable to get the latest forecast right now.</string>
+    <string name="you_are_seeing_the_latest_city_data">You are seeing the latest city data</string>
+    <string name="unable_to_fetch_latest_city_data">Unable to fetch the latest city data</string>
 </resources>

@@ -7,8 +7,8 @@ import tech.ericwathome.core.domain.util.EmptyResult
 import tech.ericwathome.weatherapp.domain.util.DataError
 
 interface LocalWeatherDataSource {
-    val weatherForecastObservable: Flow<Forecast>
-    val cityDataObservable: Flow<List<CityData>>
+    val weatherForecastObservable: Flow<Forecast?>
+    val cityDataObservable: Flow<List<CityData>?>
 
     suspend fun upsertWeatherForecast(forecast: Forecast): EmptyResult<DataError.Local>
 

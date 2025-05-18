@@ -8,4 +8,6 @@ sealed interface SearchLocationAction {
     data class OnSelectLocation(val index: Int) : SearchLocationAction
 
     data object OnClickContinue : SearchLocationAction
+
+    data object OnClickSearchIcon : SearchLocationAction
 }
