@@ -8,4 +8,5 @@ data class WeatherState(
     val loading: Boolean = false,
     val forecast: Forecast? = null,
     val showUseCurrentLocationDialog: Boolean = false,
+    val showLocationRationale: Boolean = false,
 )

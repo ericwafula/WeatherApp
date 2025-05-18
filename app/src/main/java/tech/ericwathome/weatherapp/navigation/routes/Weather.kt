@@ -1,4 +1,4 @@
-package tech.ericwathome.weatherapp.navigation.screens
+package tech.ericwathome.weatherapp.navigation.routes
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController

@@ -6,4 +6,11 @@ sealed interface WeatherAction {
     data object OnClickUseCurrentLocationYes : WeatherAction
 
     data object OnClickSearchIcon : WeatherAction
+
+    data class SubmitLocationPermissionInfo(
+        val showLocationRationale: Boolean,
+        val isPermissionGranted: Boolean,
+    ) : WeatherAction
+
+    data object OnDismissLocationRationale : WeatherAction
 }

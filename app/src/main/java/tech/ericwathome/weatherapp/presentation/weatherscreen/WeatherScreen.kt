@@ -1,5 +1,9 @@
 package tech.ericwathome.weatherapp.presentation.weatherscreen
 
+import android.Manifest
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -25,6 +29,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -32,6 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -50,9 +56,15 @@ import tech.ericwathome.core.domain.util.DateUtils.toFullDayMonthDate
 import tech.ericwathome.core.domain.util.kelvinToFormattedCelsius
 import tech.ericwathome.designsystem.WeatherAppTheme
 import tech.ericwathome.designsystem.assets.AppIcons
+import tech.ericwathome.designsystem.components.WeatherAppDialog
+import tech.ericwathome.designsystem.components.WeatherAppFilledButton
+import tech.ericwathome.designsystem.components.WeatherAppOutlinedButton
 import tech.ericwathome.designsystem.components.WeatherAppToolbarLayout
 import tech.ericwathome.designsystem.utils.ImageUtils
+import tech.ericwathome.designsystem.utils.LocalTextUtils
 import tech.ericwathome.designsystem.utils.shimmerEffect
+import tech.ericwathome.weatherapp.presentation.util.hasLocationPermissions
+import tech.ericwathome.weatherapp.presentation.util.shouldShowLocationPermissionRationale
 import java.time.LocalDateTime
 import kotlin.math.ceil
 
@@ -79,11 +91,43 @@ fun WeatherScreenContent(
     state: WeatherState,
     onAction: (WeatherAction) -> Unit,
 ) {
+    val context = LocalContext.current
+    val activity = remember { context as? ComponentActivity }
     val currentDate = remember { LocalDateTime.now().toLocalDate().toFullDayMonthDate() }
     val currentForecast = remember { state.forecast?.list?.firstOrNull() }
     val windSpeed = remember { ceil(currentForecast?.wind?.speed ?: 0.0).toInt() }
     val visibilityInKm = remember { (currentForecast?.visibility ?: 0) / 1000 }
-    val formattedTemp = remember { currentForecast?.main?.temp?.kelvinToFormattedCelsius()?.removeRange(0, 1) ?: "" }
+    val formattedTemp = remember { currentForecast?.main?.temp?.kelvinToFormattedCelsius()?.removeRange(0, 1) ?: "0" }
+
+    val locationPermissionLauncher =
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.RequestPermission(),
+        ) { isGranted ->
+            val showLocationRationale = activity?.shouldShowLocationPermissionRationale() == true
+
+            onAction(
+                WeatherAction.SubmitLocationPermissionInfo(
+                    showLocationRationale = showLocationRationale,
+                    isPermissionGranted = isGranted,
+                ),
+            )
+        }
+
+    LaunchedEffect(true) {
+        val showLocationRationale = activity?.shouldShowLocationPermissionRationale() == true
+        val hasLocationPermission = context.hasLocationPermissions()
+
+        onAction(
+            WeatherAction.SubmitLocationPermissionInfo(
+                showLocationRationale = showLocationRationale,
+                isPermissionGranted = hasLocationPermission,
+            ),
+        )
+
+        if (!hasLocationPermission) {
+            locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+        }
+    }
 
     WeatherAppToolbarLayout(
         title = "${state.forecast?.city?.name ?: "Nairobi, Kenya"}, ${state.forecast?.city?.country ?: ""}",
@@ -183,7 +227,7 @@ fun WeatherScreenContent(
                     style =
                         MaterialTheme.typography.bodyLarge.copy(
                             color = MaterialTheme.colorScheme.onBackground,
-                            fontSize = 120.sp,
+                            fontSize = with(LocalTextUtils.current) { 120.sp.fixedSize },
                             fontWeight = FontWeight.Bold,
                         ),
                 )
@@ -358,6 +402,26 @@ fun WeatherScreenContent(
                 }
             }
         }
+
+        if (state.showLocationRationale) {
+            WeatherAppDialog(
+                title = "Allow location access?",
+                description = "We use your location to show weather updates for where you are right now. It helps us keep things accurate and relevant.",
+                onDismiss = { /* user should not be able to dismiss the location rationale unless they click deny */ },
+                actions = {
+                    WeatherAppOutlinedButton(
+                        modifier = Modifier.weight(1f),
+                        text = "Deny",
+                        onClick = { onAction(WeatherAction.OnDismissLocationRationale) },
+                    )
+                    WeatherAppFilledButton(
+                        modifier = Modifier.weight(1f),
+                        text = "Allow",
+                        onClick = { locationPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION) },
+                    )
+                },
+            )
+        }
     }
 }
 
@@ -421,7 +485,7 @@ private fun WeatherInfoDataColumn(
                 style =
                     MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground,
-                        fontSize = 20.sp,
+                        fontSize = with(LocalTextUtils.current) { 20.sp.fixedSize },
                         fontWeight = FontWeight.Bold,
                     ),
             )
@@ -433,6 +497,7 @@ private fun WeatherInfoDataColumn(
                 MaterialTheme.typography.bodyMedium.copy(
                     color = MaterialTheme.colorScheme.onBackground,
                     fontWeight = FontWeight.Normal,
+                    fontSize = with(LocalTextUtils.current) { 14.sp.fixedSize },
                 ),
         )
     }
