@@ -8,7 +8,7 @@ fun CityDataEntity.toDomain(): CityData {
         country = country,
         name = name,
         lat = lat,
-        lon = lon
+        lon = lon,
     )
 }
 
@@ -17,6 +17,6 @@ fun CityData.toEntity(): CityDataEntity {
         country = country,
         name = name,
         lat = lat,
-        lon = lon
+        lon = lon,
     )
 }

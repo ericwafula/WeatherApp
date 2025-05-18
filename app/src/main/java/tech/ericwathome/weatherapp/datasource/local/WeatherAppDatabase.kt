@@ -14,5 +14,6 @@ import tech.ericwathome.weatherapp.datasource.local.source.weather.ForecastDao
 @TypeConverters(ForecastConverters::class)
 abstract class WeatherAppDatabase : RoomDatabase() {
     abstract fun forecastDao(): ForecastDao
-    abstract  fun cityDataDao(): CityDataDao
+
+    abstract fun cityDataDao(): CityDataDao
 }

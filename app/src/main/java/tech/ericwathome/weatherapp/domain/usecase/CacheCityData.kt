@@ -12,7 +12,7 @@ import tech.ericwathome.weatherapp.domain.util.DataError
 class CacheCityData(
     private val localWeatherDataSource: LocalWeatherDataSource,
     private val remoteWeatherDatasource: KtorRemoteWeatherDatasource,
-    private val applicationScope: CoroutineScope
+    private val applicationScope: CoroutineScope,
 ) {
     suspend operator fun invoke(): EmptyResult<DataError> {
         return when (val result = remoteWeatherDatasource.fetchCities()) {
