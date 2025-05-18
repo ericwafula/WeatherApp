@@ -6,6 +6,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.launchIn
@@ -23,6 +24,7 @@ import tech.ericwathome.core.domain.weather.WeatherRepository
 import tech.ericwathome.core.ui.UiText
 import tech.ericwathome.weatherapp.R
 import tech.ericwathome.weatherapp.domain.usecase.CacheWeatherForecast
+import tech.ericwathome.weatherapp.presentation.searchlocation.CityDataState
 import timber.log.Timber
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -74,6 +76,10 @@ class WeatherViewModel(
         }
     }
 
+    fun initCityData(cityDataState: CityDataState) {
+        Timber.tag("WeatherViewModel").d("cityDataState: $cityDataState")
+    }
+
     private fun onClickUseCurrentLocationNo() {
         _state.update { it.copy(showUseCurrentLocationDialog = false) }
     }
@@ -112,6 +118,7 @@ class WeatherViewModel(
     private fun observeWeatherForecast() {
         weatherRepository
             .weatherForecastObservable
+            .filterNotNull()
             .onEach { forecast ->
                 _state.update { it.copy(forecast = forecast) }
             }.launchIn(viewModelScope)

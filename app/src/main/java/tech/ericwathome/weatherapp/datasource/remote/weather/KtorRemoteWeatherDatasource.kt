@@ -1,6 +1,9 @@
 package tech.ericwathome.weatherapp.datasource.remote.weather
 
 import io.ktor.client.HttpClient
+import io.ktor.client.request.get
+import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
 import tech.ericwathome.core.domain.model.CityData
 import tech.ericwathome.core.domain.model.Forecast
 import tech.ericwathome.core.domain.util.Result
@@ -32,8 +35,24 @@ class KtorRemoteWeatherDatasource(
     }
 
     override suspend fun fetchCities(): Result<List<CityData>, DataError.Network> {
-        return httpClient.get<List<CityDataDto>>(
-            route = BuildConfig.CITY_API,
-        ).map { list -> list.map { it.toDomain() } }
+        val response =
+            try {
+                httpClient.get<String>(BuildConfig.CITY_API)
+            } catch (e: Exception) {
+                return Result.Error(DataError.Network.UNKNOWN)
+            }
+
+        return when (response) {
+            is Result.Success -> {
+                try {
+                    val cities = Json.decodeFromString<List<CityDataDto>>(response.data)
+                    Result.Success(cities.map { it.toDomain() })
+                } catch (e: SerializationException) {
+                    Result.Error(DataError.Network.SERIALIZATION)
+                }
+            }
+
+            is Result.Error -> response
+        }
     }
 }
