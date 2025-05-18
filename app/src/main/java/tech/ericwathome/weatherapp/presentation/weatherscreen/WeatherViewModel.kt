@@ -14,8 +14,14 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import tech.ericwathome.core.domain.LocationObserver
+import tech.ericwathome.core.domain.model.Location
+import tech.ericwathome.core.domain.util.onError
+import tech.ericwathome.core.domain.util.onSuccess
 import tech.ericwathome.core.domain.weather.WeatherRepository
+import tech.ericwathome.core.ui.UiText
+import tech.ericwathome.weatherapp.R
 import tech.ericwathome.weatherapp.domain.usecase.CacheWeatherForecast
 import timber.log.Timber
 
@@ -32,7 +38,6 @@ class WeatherViewModel(
     val state =
         _state
             .onStart {
-                loadWeatherData()
                 initStateObservers()
             }
             .stateIn(
@@ -93,12 +98,38 @@ class WeatherViewModel(
     }
 
     private fun initStateObservers() {
+        observeUserLocation()
+        observeWeatherForecast()
+    }
+
+    private fun observeUserLocation() {
         currentUserLocation
             .onEach { location ->
-                Timber.tag("WeatherViewModel").d("location: $location")
+                location?.let { loadWeatherData(location) }
             }.launchIn(viewModelScope)
     }
 
-    private fun loadWeatherData() {
+    private fun observeWeatherForecast() {
+        weatherRepository
+            .weatherForecastObservable
+            .onEach { forecast ->
+                _state.update { it.copy(forecast = forecast) }
+            }.launchIn(viewModelScope)
+    }
+
+    private fun loadWeatherData(location: Location) {
+        Timber.tag("WeatherViewModel").d("location: $location")
+        _state.update { it.copy(loading = true) }
+
+        viewModelScope.launch {
+            cacheWeatherForecast(location.lat, location.lon)
+                .onSuccess {
+                    _state.update { it.copy(isError = false, loading = false) }
+                    _event.send(WeatherEvent.ShowMessage(uiText = UiText.StringResource(R.string.you_are_seeing_the_latest_forecast)))
+                }.onError {
+                    _state.update { it.copy(isError = true, loading = false) }
+                    _event.send(WeatherEvent.ShowMessage(uiText = UiText.StringResource(R.string.unable_to_get_latest_forecast)))
+                }
+        }
     }
 }

@@ -15,7 +15,7 @@ import kotlinx.serialization.SerializationException
 import tech.ericwathome.weatherapp.BuildConfig
 import tech.ericwathome.weatherapp.domain.util.DataError
 import timber.log.Timber
-import tech.ericwathome.weatherapp.domain.util.Result as DataResult
+import tech.ericwathome.core.domain.util.Result as DataResult
 
 suspend inline fun <reified Response : Any> HttpClient.get(
     route: String,

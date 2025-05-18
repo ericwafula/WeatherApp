@@ -9,4 +9,5 @@ data class WeatherState(
     val forecast: Forecast? = null,
     val showUseCurrentLocationDialog: Boolean = false,
     val showLocationRationale: Boolean = false,
+    val isError: Boolean = false,
 )

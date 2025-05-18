@@ -2,19 +2,19 @@ package tech.ericwathome.weatherapp.datasource.local
 
 import androidx.room.TypeConverter
 import kotlinx.serialization.json.Json
-import tech.ericwathome.core.domain.model.City
-import tech.ericwathome.core.domain.model.ForecastItem
+import tech.ericwathome.weatherapp.datasource.local.entity.CityEntity
+import tech.ericwathome.weatherapp.datasource.local.entity.ForecastItemEntity
 
 class ForecastConverters {
     @TypeConverter
-    fun fromForecastItemList(items: List<ForecastItem>): String = Json.encodeToString(items)
+    fun fromForecastItemList(items: List<ForecastItemEntity>): String = Json.encodeToString(items)
 
     @TypeConverter
-    fun toForecastItemList(json: String): List<ForecastItem> = Json.decodeFromString(json)
+    fun toForecastItemList(json: String): List<ForecastItemEntity> = Json.decodeFromString(json)
 
     @TypeConverter
-    fun fromCity(city: City) = Json.encodeToString(city)
+    fun fromCity(city: CityEntity) = Json.encodeToString(city)
 
     @TypeConverter
-    fun toCity(json: String): City = Json.decodeFromString(json)
+    fun toCity(json: String): CityEntity = Json.decodeFromString(json)
 }

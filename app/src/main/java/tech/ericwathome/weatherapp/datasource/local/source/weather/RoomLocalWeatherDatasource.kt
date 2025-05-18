@@ -3,12 +3,12 @@ package tech.ericwathome.weatherapp.datasource.local.source.weather
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import tech.ericwathome.core.domain.model.Forecast
+import tech.ericwathome.core.domain.util.EmptyResult
 import tech.ericwathome.core.domain.weather.LocalWeatherDataSource
 import tech.ericwathome.weatherapp.data.mappers.toDomain
 import tech.ericwathome.weatherapp.data.mappers.toEntity
 import tech.ericwathome.weatherapp.datasource.local.util.safeTransaction
 import tech.ericwathome.weatherapp.domain.util.DataError
-import tech.ericwathome.weatherapp.domain.util.EmptyResult
 
 class RoomLocalWeatherDatasource(
     private val forecastDao: ForecastDao,

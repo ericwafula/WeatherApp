@@ -43,7 +43,7 @@ object DateUtils {
     }
 
     fun Long.toDayShotMonth(): String {
-        val localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(this), ZoneId.systemDefault())
+        val localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(this * 1000), ZoneId.systemDefault())
         return localDateTime.format(DateTimeFormatter.ofPattern(DAY_SHORT_MONTH))
     }
 }

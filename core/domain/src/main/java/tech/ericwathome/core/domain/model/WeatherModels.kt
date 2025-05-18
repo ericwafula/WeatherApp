@@ -9,7 +9,7 @@ data class Forecast(
 data class ForecastItem(
     val dt: Long,
     val main: Main,
-    val weather: Weather,
+    val weather: List<Weather>,
     val wind: Wind,
     val visibility: Long,
     val dtTxt: String,

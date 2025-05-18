@@ -20,8 +20,8 @@ fun ForecastDto.toDomain(): Forecast {
     return Forecast(
         list = list.map { it.toDomain() },
         dailySummary =
-            "Now it feels like ${list.toFeelLikeTempCelsius()}, actually ${list.toMinTempCelsius()}." +
-                "${list.getOrNull(0)?.weather?.description ?: ""} today, " +
+            "Now it feels like ${list.toFeelLikeTempCelsius()}, actually ${list.toMinTempCelsius()}.\n" +
+                "${list.getOrNull(0)?.weather?.firstOrNull()?.description ?: ""} today, " +
                 "temperatures ranging from ${list.toMinTempCelsius()} to ${list.toMaxTempCelsius()}.",
         city = city.toDomain(),
     )
@@ -31,7 +31,7 @@ fun ForecastItemDto.toDomain(): ForecastItem {
     return ForecastItem(
         dt = dt,
         main = main.toDomain(),
-        weather = weather.toDomain(),
+        weather = weather.map { it.toDomain() },
         wind = wind.toDomain(),
         visibility = visibility,
         dtTxt = dtTxt,

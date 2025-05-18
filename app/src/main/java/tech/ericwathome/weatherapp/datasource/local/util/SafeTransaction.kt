@@ -7,9 +7,9 @@ import androidx.annotation.Keep
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import tech.ericwathome.core.domain.util.EmptyResult
+import tech.ericwathome.core.domain.util.Result
 import tech.ericwathome.weatherapp.domain.util.DataError
-import tech.ericwathome.weatherapp.domain.util.EmptyResult
-import tech.ericwathome.weatherapp.domain.util.Result
 
 suspend fun <T> safeTransaction(
     dispatcher: CoroutineDispatcher = Dispatchers.IO,

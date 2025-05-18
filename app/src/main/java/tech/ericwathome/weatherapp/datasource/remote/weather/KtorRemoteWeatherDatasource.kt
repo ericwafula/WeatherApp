@@ -2,14 +2,14 @@ package tech.ericwathome.weatherapp.datasource.remote.weather
 
 import io.ktor.client.HttpClient
 import tech.ericwathome.core.domain.model.Forecast
+import tech.ericwathome.core.domain.util.Result
+import tech.ericwathome.core.domain.util.map
 import tech.ericwathome.core.domain.weather.RemoteWeatherDatasource
 import tech.ericwathome.weatherapp.BuildConfig
 import tech.ericwathome.weatherapp.data.mappers.toDomain
 import tech.ericwathome.weatherapp.data.network.get
 import tech.ericwathome.weatherapp.datasource.remote.dto.ForecastDto
 import tech.ericwathome.weatherapp.domain.util.DataError
-import tech.ericwathome.weatherapp.domain.util.Result
-import tech.ericwathome.weatherapp.domain.util.map
 
 class KtorRemoteWeatherDatasource(
     private val httpClient: HttpClient,

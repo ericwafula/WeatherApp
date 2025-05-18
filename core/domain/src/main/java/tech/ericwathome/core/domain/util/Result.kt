@@ -1,6 +1,4 @@
-package tech.ericwathome.weatherapp.domain.util
-
-import tech.ericwathome.core.domain.util.Error
+package tech.ericwathome.core.domain.util
 
 sealed interface Result<out D, out E : Error> {
     data class Success<out D>(val data: D) : Result<D, Nothing>
@@ -21,3 +19,17 @@ fun <T, E : Error> Result<T, E>.asEmptyDataResult(): EmptyResult<E> {
 }
 
 typealias EmptyResult<E> = Result<Unit, E>
+
+inline fun <T, E : Error> Result<T, E>.onSuccess(result: (T) -> Unit): Result<T, E> {
+    if (this is Result.Success) {
+        result(data)
+    }
+    return this
+}
+
+inline fun <T, E : Error> Result<T, E>.onError(result: (E) -> Unit): Result<T, E> {
+    if (this is Result.Error) {
+        result(error)
+    }
+    return this
+}

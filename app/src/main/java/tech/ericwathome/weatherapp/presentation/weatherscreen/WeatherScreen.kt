@@ -1,6 +1,7 @@
 package tech.ericwathome.weatherapp.presentation.weatherscreen
 
 import android.Manifest
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -54,6 +55,7 @@ import tech.ericwathome.core.domain.model.Wind
 import tech.ericwathome.core.domain.util.DateUtils
 import tech.ericwathome.core.domain.util.DateUtils.toFullDayMonthDate
 import tech.ericwathome.core.domain.util.kelvinToFormattedCelsius
+import tech.ericwathome.core.ui.CollectOneTimeEvent
 import tech.ericwathome.designsystem.WeatherAppTheme
 import tech.ericwathome.designsystem.assets.AppIcons
 import tech.ericwathome.designsystem.components.WeatherAppDialog
@@ -74,6 +76,19 @@ fun WeatherScreen(
     viewModel: WeatherViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val context = LocalContext.current
+
+    CollectOneTimeEvent(viewModel.event) { event ->
+        when (event) {
+            is WeatherEvent.ShowMessage -> {
+                Toast.makeText(
+                    context,
+                    event.uiText.asString(context),
+                    Toast.LENGTH_SHORT,
+                ).show()
+            }
+        }
+    }
 
     WeatherScreenContent(
         state = state,
@@ -94,10 +109,10 @@ fun WeatherScreenContent(
     val context = LocalContext.current
     val activity = remember { context as? ComponentActivity }
     val currentDate = remember { LocalDateTime.now().toLocalDate().toFullDayMonthDate() }
-    val currentForecast = remember { state.forecast?.list?.firstOrNull() }
-    val windSpeed = remember { ceil(currentForecast?.wind?.speed ?: 0.0).toInt() }
-    val visibilityInKm = remember { (currentForecast?.visibility ?: 0) / 1000 }
-    val formattedTemp = remember { currentForecast?.main?.temp?.kelvinToFormattedCelsius()?.removeRange(0, 1) ?: "0" }
+    val currentForecast = state.forecast?.list?.firstOrNull()
+    val windSpeed = ceil(currentForecast?.wind?.speed ?: 0.0).toInt()
+    val visibilityInKm = (currentForecast?.visibility ?: 0) / 1000
+    val formattedTemp = currentForecast?.main?.temp?.kelvinToFormattedCelsius()?.removeRange(0, 1) ?: "0"
 
     val locationPermissionLauncher =
         rememberLauncherForActivityResult(
@@ -130,7 +145,7 @@ fun WeatherScreenContent(
     }
 
     WeatherAppToolbarLayout(
-        title = "${state.forecast?.city?.name ?: "Nairobi, Kenya"}, ${state.forecast?.city?.country ?: ""}",
+        title = "${state.forecast?.city?.name ?: "Location not found"}, ${state.forecast?.city?.country ?: ""}",
         actions = {
             IconButton(
                 onClick = { onAction(WeatherAction.OnClickSearchIcon) },
@@ -198,7 +213,7 @@ fun WeatherScreenContent(
                                 Modifier
                             },
                         ),
-                text = currentForecast?.weather?.main ?: "Sunny",
+                text = currentForecast?.weather?.firstOrNull()?.main ?: "Nothing found",
                 style =
                     MaterialTheme.typography.bodyLarge.copy(
                         color = MaterialTheme.colorScheme.onBackground,
@@ -317,6 +332,7 @@ fun WeatherScreenContent(
                     Spacer(modifier = Modifier.height(12.dp))
                     LazyRow(
                         contentPadding = PaddingValues(horizontal = 24.dp),
+                        horizontalArrangement = Arrangement.spacedBy(18.dp),
                     ) {
                         items(state.forecast?.list ?: emptyList()) { forecast ->
                             Column(
@@ -350,7 +366,7 @@ fun WeatherScreenContent(
                                 Spacer(modifier = Modifier.height(6.dp))
                                 SubcomposeAsyncImage(
                                     modifier = Modifier.size(24.dp),
-                                    model = ImageUtils.createImageRequest(ImageUtils.ImageType.PNG, forecast.weather.icon),
+                                    model = ImageUtils.createImageRequest(ImageUtils.ImageType.PNG, forecast.weather.firstOrNull()?.icon ?: ""),
                                     contentDescription = "Image",
                                     contentScale = ContentScale.Crop,
                                     loading = {
@@ -526,11 +542,13 @@ private fun WeatherScreenPreview() {
                                                 humidity = 79,
                                             ),
                                         weather =
-                                            Weather(
-                                                id = 500,
-                                                main = "Rain",
-                                                description = "light rain",
-                                                icon = "10d",
+                                            listOf(
+                                                Weather(
+                                                    id = 500,
+                                                    main = "Rain",
+                                                    description = "light rain",
+                                                    icon = "10d",
+                                                ),
                                             ),
                                         wind = Wind(speed = 1.63),
                                         visibility = 9989,
