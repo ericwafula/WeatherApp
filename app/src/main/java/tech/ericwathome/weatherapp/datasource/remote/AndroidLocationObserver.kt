@@ -17,8 +17,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.launch
-import tech.ericwathome.core.domain.Location
 import tech.ericwathome.core.domain.LocationObserver
+import tech.ericwathome.core.domain.model.Location
 import tech.ericwathome.core.remote.mappers.toDomain
 
 class AndroidLocationObserver(

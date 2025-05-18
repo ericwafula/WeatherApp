@@ -1,4 +1,4 @@
-package tech.ericwathome.core.domain
+package tech.ericwathome.core.domain.model
 
 data class Location(
     val lat: Double,
