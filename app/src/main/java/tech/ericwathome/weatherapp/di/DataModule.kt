@@ -8,12 +8,18 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import tech.ericwathome.core.domain.ConnectionObserver
 import tech.ericwathome.core.domain.LocationObserver
+import tech.ericwathome.core.domain.weather.LocalWeatherDataSource
+import tech.ericwathome.core.domain.weather.RemoteWeatherDatasource
+import tech.ericwathome.core.domain.weather.WeatherRepository
+import tech.ericwathome.weatherapp.data.DefaultWeatherRepository
 import tech.ericwathome.weatherapp.data.network.HttpClientFactory
 import tech.ericwathome.weatherapp.data.util.DefaultDispatcherProvider
 import tech.ericwathome.weatherapp.datasource.local.WeatherAppDatabase
 import tech.ericwathome.weatherapp.datasource.local.source.weather.ForecastDao
+import tech.ericwathome.weatherapp.datasource.local.source.weather.RoomLocalWeatherDatasource
 import tech.ericwathome.weatherapp.datasource.remote.AndroidLocationObserver
 import tech.ericwathome.weatherapp.datasource.remote.DefaultConnectionObserver
+import tech.ericwathome.weatherapp.datasource.remote.weather.KtorRemoteWeatherDatasource
 import tech.ericwathome.weatherapp.domain.util.DispatcherProvider
 
 val dataModule =
@@ -30,4 +36,7 @@ val dataModule =
             ).build()
         }
         single<ForecastDao> { get<WeatherAppDatabase>().forecastDao() }
+        singleOf(::RoomLocalWeatherDatasource).bind<LocalWeatherDataSource>()
+        singleOf(::KtorRemoteWeatherDatasource).bind<RemoteWeatherDatasource>()
+        singleOf(::DefaultWeatherRepository).bind<WeatherRepository>()
     }

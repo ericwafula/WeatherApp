@@ -10,7 +10,7 @@ import tech.ericwathome.weatherapp.datasource.local.util.safeTransaction
 import tech.ericwathome.weatherapp.domain.util.DataError
 import tech.ericwathome.weatherapp.domain.util.EmptyResult
 
-class DefaultLocalWeatherDatasource(
+class RoomLocalWeatherDatasource(
     private val forecastDao: ForecastDao,
 ) : LocalWeatherDataSource {
     override val weatherForecastObservable: Flow<Forecast>

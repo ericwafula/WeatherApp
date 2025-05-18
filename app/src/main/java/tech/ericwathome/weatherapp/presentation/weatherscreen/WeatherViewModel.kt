@@ -15,11 +15,15 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import tech.ericwathome.core.domain.LocationObserver
+import tech.ericwathome.core.domain.weather.WeatherRepository
+import tech.ericwathome.weatherapp.domain.usecase.CacheWeatherForecast
 import timber.log.Timber
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class WeatherViewModel(
     private val locationObserver: LocationObserver,
+    private val cacheWeatherForecast: CacheWeatherForecast,
+    private val weatherRepository: WeatherRepository,
 ) : ViewModel() {
     private val _event = Channel<WeatherEvent>()
     val event = _event.receiveAsFlow()
