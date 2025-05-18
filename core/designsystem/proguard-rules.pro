@@ -29,3 +29,8 @@
 }
 
 -keep class tech.ericwathome.designsystem.assets.AppIcons { *; }
+-keep class tech.ericwathome.designsystem.components.WeatherAppDialogKt { *; }
+-keep class tech.ericwathome.designsystem.components.WeatherAppFilledButtonKt { *; }
+-keep class tech.ericwathome.designsystem.components.WeatherAppOutlinedButtonKt { *; }
+-keep class tech.ericwathome.designsystem.components.WeatherAppToolbarLayoutKt { *; }
+-keep class tech.ericwathome.designsystem.utils.ShimerEffectKt { *; }

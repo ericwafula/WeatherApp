@@ -1,4 +1,4 @@
-package tech.ericwathome.weatherapp.domain.util
+package tech.ericwathome.core.domain.util
 
 /**
  * Utility function to execute a block of code and return its result,

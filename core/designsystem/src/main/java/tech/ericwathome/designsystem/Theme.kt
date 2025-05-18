@@ -18,6 +18,7 @@ private val DarkColorScheme =
         onSurface = White,
         outline = Yellow.copy(0.4f),
         outlineVariant = White.copy(0.4f),
+        error = Error,
     )
 
 @Composable
