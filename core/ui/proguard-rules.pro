@@ -22,3 +22,10 @@
 
 -keeppackagenames
 -dontobfuscate
+
+-keepclassmembers class * {
+    @androidx.compose.runtime.Composable <methods>;
+}
+
+-keep class tech.ericwathome.core.ui.CollectOneTimeEventKt { *; }
+-keep class tech.ericwathome.core.ui.PermissionUtilsKt { *; }
