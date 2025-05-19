@@ -22,10 +22,11 @@ class CacheWeatherForecast(
     private val applicationScope: CoroutineScope,
 ) {
     suspend operator fun invoke(
-        lat: Double,
-        lon: Double,
+        lat: Double?,
+        lon: Double?,
+        city: String,
     ): EmptyResult<DataError> {
-        return when (val result = remoteWeatherDatasource.fetchWeatherForecast(lat, lon)) {
+        return when (val result = remoteWeatherDatasource.fetchWeatherForecast(lat, lon, city)) {
             is Result.Error -> result.asEmptyDataResult()
             is Result.Success -> {
                 applicationScope.async {

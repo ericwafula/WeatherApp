@@ -39,6 +39,7 @@ fun WeatherAppDialog(
                 Modifier
                     .fillMaxWidth()
                     .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.background)
                     .background(MaterialTheme.colorScheme.surface)
                     .padding(18.dp),
             horizontalAlignment = Alignment.CenterHorizontally,

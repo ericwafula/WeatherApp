@@ -29,4 +29,8 @@ object AppIcons {
     val FrownOutlined: ImageVector
         @Composable
         get() = ImageVector.vectorResource(R.drawable.ic_eye)
+
+    val WifiOffOutlined: ImageVector
+        @Composable
+        get() = ImageVector.vectorResource(R.drawable.ic_wifi_off)
 }
