@@ -71,7 +71,7 @@ fun WeatherAppTextField(
         onValueChange = onValueChange,
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
-        textStyle = LocalTextStyle.current.copy(fontSize = 14.sp),
+        textStyle = LocalTextStyle.current.copy(fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurface),
         singleLine = true,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.secondary),
         decorationBox = { innerBox ->

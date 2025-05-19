@@ -10,4 +10,7 @@ data class WeatherState(
     val showUseCurrentLocationDialog: Boolean = false,
     val showLocationRationale: Boolean = false,
     val isError: Boolean = false,
+    val showBottomSheet: Boolean = false,
+    val cityName: String = "",
+    val showConnectionSnackBar: Boolean = false,
 )

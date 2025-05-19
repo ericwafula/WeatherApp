@@ -7,6 +7,12 @@ sealed interface WeatherAction {
 
     data object OnClickSearchIcon : WeatherAction
 
+    data object OnDismissBottomSheet : WeatherAction
+
+    data class OnEnterCityName(val name: String) : WeatherAction
+
+    data object OnClickContinue : WeatherAction
+
     data class SubmitLocationPermissionInfo(
         val showLocationRationale: Boolean,
         val isPermissionGranted: Boolean,

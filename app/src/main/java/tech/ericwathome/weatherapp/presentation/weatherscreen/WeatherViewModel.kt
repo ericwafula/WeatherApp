@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import tech.ericwathome.core.domain.ConnectionObserver
 import tech.ericwathome.core.domain.LocationObserver
 import tech.ericwathome.core.domain.model.Location
 import tech.ericwathome.core.domain.util.onError
@@ -24,7 +25,6 @@ import tech.ericwathome.core.domain.weather.WeatherRepository
 import tech.ericwathome.core.ui.UiText
 import tech.ericwathome.weatherapp.R
 import tech.ericwathome.weatherapp.domain.usecase.CacheWeatherForecast
-import tech.ericwathome.weatherapp.presentation.searchlocation.CityDataState
 import timber.log.Timber
 
 @OptIn(ExperimentalCoroutinesApi::class)
@@ -32,6 +32,7 @@ class WeatherViewModel(
     private val locationObserver: LocationObserver,
     private val cacheWeatherForecast: CacheWeatherForecast,
     private val weatherRepository: WeatherRepository,
+    private val connectionObserver: ConnectionObserver,
 ) : ViewModel() {
     private val _event = Channel<WeatherEvent>()
     val event = _event.receiveAsFlow()
@@ -67,17 +68,17 @@ class WeatherViewModel(
             WeatherAction.OnClickUseCurrentLocationNo -> onClickUseCurrentLocationNo()
             WeatherAction.OnClickUseCurrentLocationYes -> onClickUseCurrentLocationYes()
             WeatherAction.OnDismissLocationRationale -> onDismissLocationRationale()
+            WeatherAction.OnClickSearchIcon -> onClickSearchIcon()
+            is WeatherAction.OnEnterCityName -> onEnterCityName(action.name)
+            WeatherAction.OnClickContinue -> onClickContinue()
             is WeatherAction.SubmitLocationPermissionInfo ->
                 submitLocationPermissionInfo(
                     showLocationRationale = action.showLocationRationale,
                     isPermissionGranted = action.isPermissionGranted,
                 )
-            else -> Unit
-        }
-    }
 
-    fun initCityData(cityDataState: CityDataState) {
-        Timber.tag("WeatherViewModel").d("cityDataState: $cityDataState")
+            WeatherAction.OnDismissBottomSheet -> onDismissBottomSheet()
+        }
     }
 
     private fun onClickUseCurrentLocationNo() {
@@ -87,11 +88,28 @@ class WeatherViewModel(
     private fun onClickUseCurrentLocationYes() {
         _state.update { it.copy(showUseCurrentLocationDialog = false) }
 
-        // use location services to fetch the user's current location
+        state.value.location?.let { loadWeatherData(it, "") }
     }
 
     private fun onDismissLocationRationale() {
         _state.update { it.copy(showLocationRationale = false) }
+    }
+
+    private fun onDismissBottomSheet() {
+        _state.update { it.copy(showBottomSheet = false) }
+    }
+
+    private fun onClickSearchIcon() {
+        _state.update { it.copy(showBottomSheet = true) }
+    }
+
+    private fun onEnterCityName(name: String) {
+        _state.update { it.copy(cityName = name) }
+    }
+
+    private fun onClickContinue() {
+        _state.update { it.copy(showBottomSheet = false) }
+        loadWeatherData(null, state.value.cityName)
     }
 
     private fun submitLocationPermissionInfo(
@@ -106,12 +124,13 @@ class WeatherViewModel(
     private fun initStateObservers() {
         observeUserLocation()
         observeWeatherForecast()
+        observeNetworkConnection()
     }
 
     private fun observeUserLocation() {
         currentUserLocation
             .onEach { location ->
-                location?.let { loadWeatherData(location) }
+                _state.update { it.copy(location = location, showUseCurrentLocationDialog = true) }
             }.launchIn(viewModelScope)
     }
 
@@ -124,12 +143,23 @@ class WeatherViewModel(
             }.launchIn(viewModelScope)
     }
 
-    private fun loadWeatherData(location: Location) {
+    private fun observeNetworkConnection() {
+        connectionObserver
+            .networkStatus
+            .onEach { isConnected ->
+                _state.update { it.copy(showConnectionSnackBar = isConnected.not()) }
+            }.launchIn(viewModelScope)
+    }
+
+    private fun loadWeatherData(
+        location: Location?,
+        city: String,
+    ) {
         Timber.tag("WeatherViewModel").d("location: $location")
         _state.update { it.copy(loading = true) }
 
         viewModelScope.launch {
-            cacheWeatherForecast(location.lat, location.lon)
+            cacheWeatherForecast(location?.lat, location?.lon, city = city)
                 .onSuccess {
                     _state.update { it.copy(isError = false, loading = false) }
                     _event.send(WeatherEvent.ShowMessage(uiText = UiText.StringResource(R.string.you_are_seeing_the_latest_forecast)))
