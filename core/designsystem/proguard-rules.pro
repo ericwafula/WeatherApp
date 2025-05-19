@@ -33,4 +33,5 @@
 -keep class tech.ericwathome.designsystem.components.WeatherAppFilledButtonKt { *; }
 -keep class tech.ericwathome.designsystem.components.WeatherAppOutlinedButtonKt { *; }
 -keep class tech.ericwathome.designsystem.components.WeatherAppToolbarLayoutKt { *; }
+-keep class tech.ericwathome.designsystem.components.WeatherAppTextFieldKt { *; }
 -keep class tech.ericwathome.designsystem.utils.ShimerEffectKt { *; }
