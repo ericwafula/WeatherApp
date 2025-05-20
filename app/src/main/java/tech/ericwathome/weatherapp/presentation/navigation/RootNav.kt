@@ -1,10 +1,10 @@
-package tech.ericwathome.weatherapp.navigation
+package tech.ericwathome.weatherapp.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import tech.ericwathome.weatherapp.navigation.routes.WeatherScreen
-import tech.ericwathome.weatherapp.navigation.routes.weatherScreen
+import tech.ericwathome.weatherapp.presentation.navigation.routes.WeatherScreen
+import tech.ericwathome.weatherapp.presentation.navigation.routes.weatherScreen
 
 @Composable
 fun RootNav() {
