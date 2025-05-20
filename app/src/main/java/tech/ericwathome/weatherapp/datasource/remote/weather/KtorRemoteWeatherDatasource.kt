@@ -1,7 +1,6 @@
 package tech.ericwathome.weatherapp.datasource.remote.weather
 
 import io.ktor.client.HttpClient
-import io.ktor.client.request.get
 import kotlinx.coroutines.withContext
 import tech.ericwathome.core.domain.model.Forecast
 import tech.ericwathome.core.domain.util.Result

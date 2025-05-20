@@ -85,10 +85,10 @@ This model ensures better responsiveness and offline support.
 ## Screenshots
 
 <div style="display: flex; gap: 10px;">
-  <img src="screenshots/weather_screen.png" alt="Weather Screen" width="1080" />
-  <img src="screenshots/location_prompt.png" alt="Location Prompt" width="1080" />
-  <img src="screenshots/search_city.png" alt="Search City" width="1080" />
-  <img src="screenshots/search_city_keyboard.png" alt="Keyboard Search" width="1080" />
+  <img src="screenshots/weather_screen.png" alt="Weather Screen" width="22%" />
+  <img src="screenshots/location_prompt.png" alt="Location Prompt" width="22%" />
+  <img src="screenshots/search_city.png" alt="Search City" width="22%" />
+  <img src="screenshots/search_city_keyboard.png" alt="Keyboard Search" width="22%" />
 </div>
 
 ---
