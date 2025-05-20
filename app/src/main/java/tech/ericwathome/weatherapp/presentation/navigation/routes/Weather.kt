@@ -1,4 +1,4 @@
-package tech.ericwathome.weatherapp.navigation.routes
+package tech.ericwathome.weatherapp.presentation.navigation.routes
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
