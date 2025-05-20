@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import tech.ericwathome.designsystem.WeatherAppTheme
-import tech.ericwathome.weatherapp.navigation.RootNav
+import tech.ericwathome.weatherapp.presentation.navigation.RootNav
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
