@@ -99,6 +99,7 @@ This model ensures better responsiveness and offline support.
 
 - Android Studio Hedgehog or newer
 - `local.properties` or `.env` setup with:
+    - `OPEN_WEATHER_BASE_URL`, you can use this: http://api.openweathermap.org/data/2.5/
     - `OPEN_WEATHER_API_KEY`
     - `CITY_API`
 - Note: The city API is currently not in use yet but you can add some dummy api key
